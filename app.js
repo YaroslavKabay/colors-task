@@ -1,1 +1,7 @@
-console.log(22);
+const express = require('express');
+
+const app = express();
+
+app.listen('4444', ()=>{
+    console.log('App listen 4444');
+});
