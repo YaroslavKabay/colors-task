@@ -1,3 +1,4 @@
+const { statusCodes } = require('../constants');
 const {userService} = require('../services');
 
 module.exports={
@@ -17,7 +18,7 @@ module.exports={
             const userToAdd = await userService.createUser(req.body);
             const { _id } = userToAdd;
 
-            // res.status(statusCodes.CREATE).json(_id);
+            res.status(statusCodes.CREATE).json(_id);
         } catch (e) {
             next(e);
         }

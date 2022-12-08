@@ -1,4 +1,4 @@
 module.exports = {
-    colorsController: require('./color.controller'),
+    colorController: require('./color.controller'),
     userController: require('./user.controller'),
 };

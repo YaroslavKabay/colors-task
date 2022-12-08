@@ -1,15 +1,22 @@
+const {colorService} = require("../services");
+
 module.exports={
 
     createColor:async (req, res) => {
 
-        // const user = await fileService.insertUser(req.body);
+        const color = await colorService.createColor(req.body);
 
         res.status(201).json(color);
     },
 
-    getAllColors:  async (req,res) => {
-        // const usersFromService = await fileService.getUsers();
-        res.json(colorsFromService);
+    getAllColors:  async (req,res,next) => {
+        try {
+            const colors = await colorService.getAllColors();
+
+            res.json(colors);
+        } catch (e) {
+            next(e);
+        }
     },
 
 }
