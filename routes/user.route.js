@@ -1,24 +1,24 @@
 const { Router } = require('express');
 
-// const {applicantsMdlwr,generalMdlwr} = require('../middlewares');
+const {colorMiddleware, commonMiddleware} = require('../middlewares');
 const {userController} = require('../controllers');
-// const {newApplicantValidator, updateApplicantValidator} = require('../validators/applicant.validator');
+const {newUserValidator}= require('../validators/user.validator');
 
 const userRoute= Router();
 
-userRoute.get(
-    '/',
-    // generalMdlwr.checkIfBodyIsValid(newApplicantValidator),
-    // applicantsMdlwr.checkIfUserEmailIsUniq,
-    userController.getAllUsers
-);
-
 userRoute.post(
     '/',
-    // generalMdlwr.checkIfBodyIsValid(newApplicantValidator),
-    // applicantsMdlwr.checkIfUserEmailIsUniq,
+    commonMiddleware.checkIfBodyIsValid(newUserValidator),
+    colorMiddleware.checkIfColorPresent('query'),
     userController.createUser
 
 );
+
+userRoute.get(
+    '/',
+    userController.getAllUsers
+);
+
+
 
 module.exports = userRoute;

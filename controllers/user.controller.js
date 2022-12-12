@@ -2,6 +2,20 @@ const { statusCodes } = require('../constants');
 const {userService} = require('../services');
 
 module.exports={
+    createUser: async (req, res, next) => {
+        try {
+
+            const { _id } = req.color;
+
+            const user = await userService.createUser({ ...req.body, color: _id });
+
+            res.status(statusCodes.CREATE).json(user);
+
+        } catch (e) {
+            next(e);
+        }
+    },
+
 
     getAllUsers: async (req, res, next) => {
         try {
@@ -13,15 +27,5 @@ module.exports={
         }
     },
 
-    createUser: async (req, res, next) => {
-        try {
-            const userToAdd = await userService.createUser(req.body);
-            const { _id } = userToAdd;
-
-            res.status(statusCodes.CREATE).json(_id);
-        } catch (e) {
-            next(e);
-        }
-    },
 
 }

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const { userRoute, colorRoute} = require('./routes');
 const { PORT, MONGO_URL} = require('./configs/configs');
+const { mainErrorHandler } = require("./errors");
 
 
 const app = express();
@@ -12,10 +13,11 @@ app.use(express.urlencoded({extended: true}));
 
 app.use('/colors', colorRoute);
 app.use('/users', userRoute);
+app.use('*', (req, res, next)=>{
+    next (new Error('Route not found'))
+})
+app.use(mainErrorHandler);
 
-// app.listen('4444', ()=>{
-//     console.log('App listen 4444');
-// });
 
 app.listen(PORT, () =>{
     console.log('App listen', PORT);

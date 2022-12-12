@@ -1,8 +1,14 @@
-const { Color } = require('../dataBase');
+const { Color} = require('../dataBase');
 
 module.exports = {
     getAllColors: () => Color.find(),
-    createColor(colorObject) {
+
+    createOne(colorObject) {
         return Color.create(colorObject);
     },
+
+    getOneById(id){
+        return Color.findById(id);
+    },
+
 };

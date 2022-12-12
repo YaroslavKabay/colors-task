@@ -1,12 +1,18 @@
+const { statusCodes } = require('../constants');
 const {colorService} = require("../services");
 
 module.exports={
 
-    createColor:async (req, res) => {
+    createColor: async (req, res, next) => {
+        try {
 
-        const color = await colorService.createColor(req.body);
+            const colorToAdd = await colorService.createOne(req.body);
 
-        res.status(201).json(color);
+            res.status(statusCodes.CREATE).json(colorToAdd);
+
+        } catch (e) {
+            next(e);
+        }
     },
 
     getAllColors:  async (req,res,next) => {
