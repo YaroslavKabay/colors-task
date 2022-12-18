@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const { ApiError } = require('../errors');
-const { BAD_REQUEST } = require('../constants/');
+const { BAD_REQUEST } = require('../constants');
 
 const usernameValidator = Joi.string().alphanum()
     .lowercase()
