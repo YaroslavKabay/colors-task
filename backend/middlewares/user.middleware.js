@@ -1,9 +1,49 @@
+// const {isObjectIdOrHexString} = require('mongoose');
+
+const {ApiError} = require('../errors');
+const { statusCodes } = require('../constants');
+
+module.exports = {
+
+    checkIfBodyIsValid : (validatorType) => (req,res,next) => {
+        try {
+
+            const validate = validatorType.validate(req.body);
+
+            if(validate.error){
+
+                return next(new ApiError(validate.error.message, statusCodes.BAD_REQUEST));
+            }
+            req.body = validate.value;
+
+            next();
+
+        }catch (e) {
+            next(e);
+        }
+    },
+    // checkIfIdIsValid: (fieldName, from='params') => (req, res, next) => {
+    //     try {
+    //         if (!isObjectIdOrHexString(req[from][fieldName])) {
+    //             return next(new ApiError('Not valid ID', statusCodes.BAD_REQUEST));
+    //
+    //         }
+    //
+    //         next();
+    //
+    //     } catch (e) {
+    //         next(e);
+    //     }
+    // },
+
+};
+
 // const {ApiError} = require('../errors');
 // const {userService} = require("../services");
 // const {statusCodes} = require("../constants");
 //
 // module.exports = {
-
+//
 //     // checkIfUserBodyIsValid : async (req,res,next) => {
 //     //     try {
 //     //         const { age, name } = req.body;

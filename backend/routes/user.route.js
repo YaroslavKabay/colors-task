@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const {colorMiddleware, commonMiddleware} = require('../middlewares');
+const {colorMiddleware, userMiddleware} = require('../middlewares');
 const {userController} = require('../controllers');
 const {newUserValidator}= require('../validators/user.validator');
 
@@ -8,8 +8,8 @@ const userRoute= Router();
 
 userRoute.post(
     '/',
-    // commonMiddleware.checkIfBodyIsValid(newUserValidator),
-    // colorMiddleware.checkIfColorPresent('query'),
+    userMiddleware.checkIfBodyIsValid(newUserValidator),
+    colorMiddleware.checkIfColorPresent('body'),
     userController.createUser
 
 );

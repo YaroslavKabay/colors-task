@@ -6,15 +6,15 @@ module.exports = {
 
     checkIfColorPresent: (from = 'params') => async function (req, res, next) {
         try {
-            const { colorId } = req[from];
+            const { color } = req[from];
 
-            const color = await colorService.getOneById(colorId);
+            const colorData = await colorService.getOneById(color);
 
-            if (!color) {
+            if (!colorData) {
                 return next(new ApiError('Color not found', statusCodes.NOT_FOUND));
             }
 
-            req.color = color;
+            req.color = colorData;
             next();
         } catch (e) {
             next(e);
