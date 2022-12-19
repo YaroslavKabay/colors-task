@@ -8,8 +8,8 @@ const userRoute= Router();
 
 userRoute.post(
     '/',
-    commonMiddleware.checkIfBodyIsValid(newUserValidator),
-    colorMiddleware.checkIfColorPresent('query'),
+    // commonMiddleware.checkIfBodyIsValid(newUserValidator),
+    // colorMiddleware.checkIfColorPresent('query'),
     userController.createUser
 
 );

@@ -6,7 +6,7 @@ export  function Posts(){
 
     let [posts, setPosts] = useState([]); // setPosts сетапає інфу з фетча в posts (setter,getter), posts  бере інфу завдяки сетеру
     // [] - default empty value
-    let [post, setPost] = useState([]); // юз стейт загалом потрібен щоб змінювати змінні в межах розмітки (ретьорн), бо без цього розмітка не поміняється
+    console.log(posts);
 
     useEffect(() => {  // потрібен для того щоб юзстейт відпрацював лише раз а нерелоадився весь час (async)
         // fetch('https://jsonplaceholder.typicode.com/posts')
@@ -29,12 +29,15 @@ export  function Posts(){
 
             {/*<h2> post components page</h2>*/}
 
-            {posts.map((post, index)=> <Post
+            {posts.map((post, index)=>
+                    // <div>{post.username}</div>
+                <Post
                 key={index}
                 item={post}
-                color={'silver'}
+                // color={'silver'}
                 // chosePost={chosePost}
-            />)}
+            />
+            )}
 
 
         </div>); // props is an object where you set new value (item), key is just needed to identify each component in array posts

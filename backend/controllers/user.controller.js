@@ -4,10 +4,12 @@ const {userService} = require('../services');
 module.exports={
     createUser: async (req, res, next) => {
         try {
+            console.log(req.body);
 
-            const { _id } = req.color;
+            // const { _id } = req.color;
 
-            const user = await userService.createUser({ ...req.body, color: _id });
+            // const user = await userService.createUser({ ...req.body, color: _id });
+            const user = await userService.createUser(req.body);
 
             res.status(statusCodes.CREATE).json(user);
 

@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const { userRoute, colorRoute} = require('./routes');
 const { PORT, MONGO_URL} = require('./configs/configs');
@@ -8,8 +9,14 @@ const { mainErrorHandler } = require("./errors");
 
 
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+// app.use(cors);
+app.use(cors({
+    origin: '*'
+}));
+
 
 app.use('/colors', colorRoute);
 app.use('/users', userRoute);
@@ -17,6 +24,7 @@ app.use('*', (req, res, next)=>{
     next (new Error('Route not found'))
 })
 app.use(mainErrorHandler);
+
 
 
 app.listen(PORT, () =>{
