@@ -1,13 +1,10 @@
-import {Comments,Users,Posts} from "./components"
+import {Form} from "./components"
 
 function App() {
 
   return (
       <div>
-        {/*<Comments/>*/}
-        <Users/>
-        {/*<Posts/>*/}
-
+        <Form/>
       </div>);
 }
 
