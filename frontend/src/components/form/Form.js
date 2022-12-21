@@ -9,7 +9,6 @@ export function Form(){
 
     let [colors, setColors] = useState([]);
     let [results, setResult] = useState([]);
-    console.log(results);
 
     useEffect(() => {
         getColors()
@@ -19,7 +18,7 @@ export function Form(){
     },[])
 
 
-    let {register, handleSubmit, formState: {errors}} = useForm ();
+    let {register, handleSubmit, formState: {errors}} = useForm ({mode: 'all'});
 
     let submit = (item) => {
         createUser(item).then(result => setResult(result))
@@ -29,21 +28,18 @@ export function Form(){
         <div>
             <form onSubmit={handleSubmit(submit)}>
 
-                <div className={'description'}>Please enter your username: </div>
-
-                <input type="text" {...register('username'
-                    , {required: true}
-                )}/>
-
-                <div className={'description'}> Please choose a color: </div>
+                <input type="text" placeholder={'Please enter your username'} {...register('username', {
+                    required: true,
+                    pattern: new RegExp(/^[a-zA-Z]{1,20}$/)
+                })}/>
 
                 <select {...register('color'
                     ,{required: true}
                 )}>
-                    {colors.map((value, index) => <option key={index} value={value._id}>{value.color}</option>)}
+                    <option value={''} disabled selected> Please choose a color </option>
+                    {colors.map((value, index) => <option  key={index} value={value._id}>{value.color}</option>)}
                 </select>
 
-                <br/>
                 <button>save</button>
                 <br/>
 
