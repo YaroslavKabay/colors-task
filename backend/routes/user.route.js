@@ -17,8 +17,7 @@ userRoute.post(
 userRoute.get(
     '/',
     userController.getAllUsers
-);
-
+); // just to check information
 
 
 module.exports = userRoute;
