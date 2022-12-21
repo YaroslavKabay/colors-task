@@ -1,50 +1,55 @@
 import {useForm} from "react-hook-form" ;
 
-import {createUser} from "../../services/" ;
-import {useState,useEffect} from "react";
 import './Form.css';
+import {createUser,getColors} from "../../services/" ;
+import {useState,useEffect} from "react";
+import Errors from "../errors/Errors";
 
 export function Form(){
 
     let [colors, setColors] = useState([]);
+    let [results, setResult] = useState([]);
+    console.log(results);
 
     useEffect(() => {
-        fetch('http://localhost:4444/colors')
-            .then(value => value.json())
+        getColors()
             .then(value => {
                 setColors(value);
-            });
+            })
     },[])
+
 
     let {register, handleSubmit, formState: {errors}} = useForm ();
 
     let submit = (item) => {
-        createUser(item).then()
+        createUser(item).then(result => setResult(result))
     }
 
     return (
         <div>
-
             <form onSubmit={handleSubmit(submit)}>
 
                 <div className={'description'}>Please enter your username: </div>
 
-                <input type="text" {...register('username', {required: true})}/>
+                <input type="text" {...register('username'
+                    , {required: true}
+                )}/>
 
-                <div className={'description'}> Please choose your color: </div>
+                <div className={'description'}> Please choose a color: </div>
 
-                <select {...register('color',{required: true})}>
+                <select {...register('color'
+                    ,{required: true}
+                )}>
                     {colors.map((value, index) => <option key={index} value={value._id}>{value.color}</option>)}
                 </select>
+
                 <br/>
-
                 <button>save</button>
-
-                <div className={'error'}>{errors.color && <span> Color field is required </span>} </div>
-                <div className={'error'}>{errors.username && <span> Username field is required </span>} </div>
+                <br/>
 
             </form>
 
+            <Errors errors={errors} results={results}/>
         </div>
     );
 }

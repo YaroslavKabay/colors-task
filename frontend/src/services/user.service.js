@@ -1,6 +1,9 @@
+import {usersURL} from '../constants' ;
+
+
 const createUser = (item) => {
 
-    return fetch("http://localhost:4444/users", {
+    return fetch(usersURL, {
         method: 'POST',
         body: JSON.stringify(item),
         headers: {'Content-type': 'application/json; charset=UTF-8'},
